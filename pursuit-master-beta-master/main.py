@@ -114,9 +114,34 @@ class Boss(Widget):
     def shoot(self):
         pass
 
+class Diamond(Widget):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = "vertical"
+        self.add_widget(BoxLayout())
+        self.img = Image(source = "res/diamond.png", pos = (500, 500))
+        self.add_widget(self.img)
+
+class Mina(Widget):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = "vertical"
+        self.add_widget(BoxLayout())
+        self.img = Image(source="res/mine.png", pos=(600, 600))
+        self.add_widget(self.img)
+
+    def update(self, pos, my_grid):
+        dx = my_grid.x
+        dy = my_grid.y
+        if self.x == dx and self.y == dy:
+            self.remove_widget(self.img)
+
+
 class PursuitGame(Widget):
     my_grid = GridGame()
     my_boss = Boss()
+    my_diamond = Diamond()
+    my_mina = Mina(my_grid)
 
 
 class PursuitApp(App):
